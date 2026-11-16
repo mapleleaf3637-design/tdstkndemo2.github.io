@@ -1,5 +1,7 @@
 import { initRouter } from './router.js';
+import { initFullscreen } from './fullscreen.js';
 
+initFullscreen();
 initRouter(document.querySelector('#app'));
 
 /** An accessible way to keep playing if someone cannot physically rotate their device. */
