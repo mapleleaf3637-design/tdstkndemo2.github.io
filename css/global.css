@@ -73,3 +73,35 @@ button:disabled { cursor: not-allowed; opacity: .54; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
 }
+
+/* Mobile browser viewport: dVH shrinks correctly when URL bars are visible.
+   Use --game-viewport-height as a single source of truth, including Fullscreen. */
+html, body { min-height: 100%; overscroll-behavior: none; }
+.game-root { height: 100vh; height: 100dvh; inset: 0 0 auto 0; }
+@supports (height: 100svh) {
+  .rotate-overlay { min-height: 100svh; }
+}
+.game-fullscreen {
+  display: inline-grid; place-items: center; flex: 0 0 auto;
+  width: 40px; height: 40px; min-width: 40px;
+  padding: 9px;
+  border: 1px solid rgba(235,227,196,.45); border-radius: 5px;
+  background: rgba(12,35,40,.76); color: #f4e2b5;
+  touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+}
+.game-fullscreen svg { width: 20px; height: 20px; }
+.game-fullscreen:hover, .game-fullscreen[aria-pressed="true"] { background: rgba(38,69,68,.96); border-color: var(--gold); }
+.game-fullscreen[hidden] { display: none !important; }
+.immersive-notice {
+  position: fixed; z-index: 1001;
+  top: calc(58px + var(--safe-t)); right: calc(12px + var(--safe-r));
+  max-width: min(460px, calc(100vw - 24px));
+  padding: 12px 15px;
+  background: rgba(13,36,41,.96); border: 1px solid var(--gold);
+  border-radius: 6px; color: var(--paper); line-height: 1.45;
+  font-size: 12px; box-shadow: 0 8px 28px #0007;
+}
+.immersive-notice[hidden] { display: none !important; }
+@media (max-height: 530px) and (orientation: landscape) {
+  .game-fullscreen { width: 38px; height: 38px; min-width: 38px; padding: 8px; }
+}

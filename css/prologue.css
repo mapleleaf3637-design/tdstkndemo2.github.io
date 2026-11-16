@@ -137,10 +137,12 @@
   color: #9eb1ae;
   padding-top: 10px;
 }
-.vn-dialog__continue { display: flex; align-items: center; gap: 12px; color: #dec48f; opacity: 0; transition: opacity .2s; }
+.vn-dialog__back { flex: 0 0 auto; color: #c3d2c9; white-space: nowrap; }
+.vn-dialog__hint { color: #a9bdb6; text-align: center; }
+.vn-dialog__continue { display: flex; align-items: center; gap: 12px; color: #dec48f; opacity: 0; transition: opacity .2s; white-space: nowrap; }
 .vn-dialog__continue.is-visible { opacity: 1; }
-.vn-down-arrow { display: inline-block; width: 8px; height: 8px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg); animation: arrow-bob 1.2s ease-in-out infinite; }
-@keyframes arrow-bob { 0%,100% { transform: rotate(45deg) translate(0,0); } 50% { transform: rotate(45deg) translate(2px,2px); } }
+.vn-right-arrow { display: inline-block; width: 8px; height: 8px; border-right: 2px solid currentColor; border-top: 2px solid currentColor; transform: rotate(45deg); animation: arrow-right-bob 1.2s ease-in-out infinite; }
+@keyframes arrow-right-bob { 0%,100% { transform: rotate(45deg) translateX(0); } 50% { transform: rotate(45deg) translate(2px,-2px); } }
 .vn-finish {
   position: absolute; z-index: 8;
   bottom: calc(var(--dialog-height) + max(2.5dvh, var(--safe-b)) + 28px);
@@ -294,7 +296,9 @@
   .vn-dialog { width: calc(100% - 7vw - var(--safe-l) - var(--safe-r)); border-radius: 4px; padding: 11px 17px 10px; }
   .vn-dialog__eyebrow { font-size: 9px; }
   .vn-dialog__text { font-size: clamp(12px,1.55vw,17px); line-height: 1.35; margin: 7px 0 auto; }
-  .vn-dialog__footer { padding-top: 6px; font-size: 8px; }
+  .vn-dialog__footer { padding-top: 6px; font-size: 8px; gap: 9px; }
+  .vn-dialog__back { letter-spacing: 0; }
+  .vn-dialog__hint { letter-spacing: 0; }
   .vn-chapter { bottom: calc(var(--dialog-height) + max(2.5dvh,var(--safe-b)) + 10px); font-size: 9px; }
   .vn-finish { bottom: calc(var(--dialog-height) + max(2.5dvh,var(--safe-b)) + 13px); width: 180px; min-height: 48px; padding: 7px 13px; font-size: 12px; }
   .vn-finish small { font-size: 8px; margin-top: 2px; }
@@ -347,8 +351,8 @@
   .vn-brand__subtitle { display: none; }
   .vn-type-toggle { padding: 0 6px; }
   .vn-dialog__text { font-size: 12px; }
-  .vn-dialog__hint { max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .vn-dialog__continue span:first-child { display: none; }
+  .vn-dialog__hint { display: none; }
+  .vn-dialog__continue span:first-child { display: inline; }
   .archive-node--1, .archive-node--2, .archive-node--3 { left: 5%; }
   .archive-node--4, .archive-node--5, .archive-node--6 { right: 5%; }
   .archive-node { width: 29%; }
@@ -378,4 +382,111 @@
   body.allow-portrait .archive-actions { justify-content: center; }
   body.allow-portrait .stage-screen { padding: 20px; }
   body.allow-portrait .stage-card h1 { font-size: 43px; }
+}
+
+/* =====================================================
+   IMMERSIVE PHONE LANDSCAPE: compact, readable overlay
+   ===================================================== */
+.archive-header__actions, .stage-topbar__actions { display: flex; align-items: center; gap: 12px; }
+.stage-topbar__actions .game-fullscreen { margin-left: 8px; }
+/* On wide, low-height phones the 16:9 illustrations should fill the *actual*
+   visible page below Chrome's URL bar instead of leaving side gutters. */
+@media (orientation: landscape) and (max-height: 530px) {
+  .vn-screen { --dialog-height: clamp(108px, 31.5dvh, 146px); }
+  .vn-illustration { object-fit: cover; object-position: center 48%; }
+  .vn-ambient { filter: blur(18px) brightness(.62); opacity: .5; }
+  .vn-topbar {
+    min-height: 49px; padding: calc(5px + var(--safe-t)) calc(13px + var(--safe-r)) 5px calc(13px + var(--safe-l));
+    align-items: center; gap: 6px;
+    background: linear-gradient(to bottom, rgba(7,25,29,.80), rgba(7,25,29,.38) 80%, transparent);
+  }
+  .vn-brand { gap: 7px; }
+  .vn-brand__symbol { font-size: 23px; }
+  .vn-brand__title { font-size: clamp(9px,1.15vw,12px); letter-spacing: .04em; }
+  .vn-brand__subtitle { display: none; }
+  .vn-controls { gap: clamp(4px,.75vw,9px); }
+  .vn-type-toggle, .vn-skip { height: 38px; min-height: 38px; padding: 0 10px; font-size: 10px; }
+  .vn-scene-count { gap: 3px; font-size: 10px; }
+  .vn-scene-current { font-size: 12px; }
+  .vn-status { top: calc(53px + var(--safe-t)); right: calc(13px + var(--safe-r)); max-width: 54%; padding: 5px 8px; font-size: 9px; }
+  .vn-chapter {
+    left: calc(16px + var(--safe-l));
+    bottom: calc(var(--dialog-height) + max(6px,var(--safe-b)) + 6px);
+    max-width: calc(62vw - var(--safe-l)); overflow: hidden; white-space: nowrap;
+    gap: 6px; font-size: 9px; letter-spacing: .04em;
+  }
+  .vn-chapter-name { overflow: hidden; text-overflow: ellipsis; }
+  .vn-chapter i { width: 14px; flex-shrink: 0; }
+  .vn-dialog {
+    width: calc(100% - 24px - var(--safe-l) - var(--safe-r));
+    bottom: max(6px,var(--safe-b));
+    padding: 9px clamp(11px,1.7vw,17px) 8px;
+    border-radius: 6px;
+    background: linear-gradient(105deg,rgba(10,32,36,.95),rgba(18,42,42,.91) 55%,rgba(15,35,34,.94));
+  }
+  .vn-dialog__eyebrow { font-size: clamp(9px,1.1vw,11px); gap: 7px; letter-spacing: .07em; }
+  .vn-dialog__text {
+    font-size: clamp(12px,1.65vw,15px);
+    line-height: 1.28; margin: 5px 0 auto;
+    min-height: 0; overflow-x: hidden; overflow-y: auto;
+    scrollbar-width: thin; overscroll-behavior: contain;
+  }
+  .vn-dialog__footer {
+    padding-top: 4px; gap: 7px;
+    font-size: clamp(8px,1vw,10px); letter-spacing: .025em;
+    justify-content: space-between;
+  }
+  .vn-dialog__back { flex: 0 0 auto; }
+  .vn-dialog__hint { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .vn-dialog__continue { flex: 0 0 auto; gap: 6px; }
+  .vn-finish {
+    bottom: calc(var(--dialog-height) + max(6px,var(--safe-b)) + 7px);
+    right: calc(14px + var(--safe-r));
+    width: 148px; min-height: 42px; padding: 5px 11px;
+    font-size: 11px; line-height: 1.15; border-radius: 5px;
+  }
+  .vn-finish small { margin-top: 3px; font-size: 8px; }
+  .vn-finish__arrow { font-size: 18px; }
+  .archive-header__actions { gap: 8px; }
+  .archive-header__actions .game-fullscreen { width: 37px; height: 37px; min-width: 37px; }
+  .archive-screen { grid-template-rows: auto auto minmax(0,1fr) auto; }
+  .archive-header { min-height: 32px; }
+  .archive-header__status { font-size: 9px; }
+  .stage-topbar { align-items: center; }
+}
+/* Extremely shallow browser viewport: collapse nonessential text, not game controls. */
+@media (orientation: landscape) and (max-height: 320px) {
+  .vn-screen { --dialog-height: clamp(98px, 36dvh, 115px); }
+  .vn-topbar { min-height: 42px; padding-top: calc(3px + var(--safe-t)); padding-bottom: 3px; }
+  .vn-controls { gap: 4px; }
+  .vn-type-toggle { padding: 0 7px; }
+  .vn-skip { padding: 0 8px; }
+  .vn-brand__symbol { font-size: 19px; }
+  .vn-brand__title { font-size: 9px; }
+  .vn-chapter { font-size: 8px; }
+  .vn-dialog { padding-top: 7px; padding-bottom: 6px; }
+  .vn-dialog__text { font-size: clamp(11px,1.62vw,13px); line-height: 1.2; }
+  .vn-dialog__footer { font-size: 8px; }
+  .vn-dialog__hint { display: none; }
+  .archive-header__status { display: none; }
+  .archive-intro p { display: none; }
+  .archive-intro { padding: 1px 0 0; }
+  .archive-map { min-height: 120px; }
+  .archive-node { min-height: 34px; }
+  .archive-progress__value strong { font-size: 20px; }
+  .archive-progress { width: 145px; }
+  .archive-actions { gap: 6px; }
+  .archive-actions button { min-height: 32px; padding: 6px 10px; }
+  .stage-card h1 { font-size: 31px; }
+  .stage-tutorial { padding: 8px 12px; margin: 9px 0; }
+}
+@media (orientation: landscape) and (max-width: 650px) and (max-height: 530px) {
+  .vn-brand__subtitle { display: none; }
+  .vn-brand__title { font-size: 9px; }
+  .vn-scene-count { display: none; }
+  .vn-type-toggle { padding: 0 7px; }
+  .vn-dialog__text { font-size: 11px; }
+  .vn-dialog__back { font-size: 7px; }
+  .vn-dialog__continue { font-size: 8px; }
+  .archive-header__status { display: none; }
 }
