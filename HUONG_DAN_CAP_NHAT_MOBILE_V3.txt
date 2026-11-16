@@ -1,0 +1,24 @@
+THE LOST ELEPHANT ARCHIVE – MOBILE V3
+
+Tính năng:
+- Tap nửa PHẢI màn hình: hiện hết lời thoại đang chạy / chuyển tiếp.
+- Tap nửa TRÁI màn hình: quay lại lời thoại trước, kể cả cảnh trước.
+- Phím mũi tên trái/phải hỗ trợ tương ứng, Enter và Space tiếp tục.
+- Nút biểu tượng 4 góc (⛶) ở góc trên để yêu cầu trình duyệt vào toàn màn hình.
+- Không thể dùng CSS để ẩn thanh địa chỉ Chrome ngay khi trang mở. Nếu nút toàn màn hình không hoạt động, dùng menu Chrome Android (ba chấm) > Thêm vào màn hình chính > Cài đặt ứng dụng, rồi mở từ biểu tượng trò chơi. Chrome có thể hiển thị tên nút khác đôi chút tùy phiên bản và thiết bị.
+- Khi mở như ứng dụng (PWA), trang có thể chạy không có thanh địa chỉ.
+- Hình nền phủ kín điện thoại ngang, hộp thoại và chữ được co giãn theo chiều cao thực tế (100dvh), có hỗ trợ safe area.
+- Các nút Skip, Aa, Enter Archive, cờ tiến độ và Stage 1 vẫn hoạt động.
+
+CẬP NHẬT GITHUB PAGES (không cần thay đổi Settings > Pages):
+1. Tải và giải nén Elephant_Archive_Mobile_v3_Update_Only.zip.
+2. Vào https://github.com/mapleleaf3637-design/tdstkndemo2.github.io (nhánh main).
+3. Chọn Add file > Upload files. KÉO THẢ TOÀN BỘ file/thư mục trong bản cập nhật, giữ nguyên vị trí /assets/icons, /css, /js, index.html, manifest.webmanifest.
+   LƯU Ý: nếu chỉ kéo từng file JS/CSS riêng, GitHub sẽ đưa chúng vào gốc repository và game sẽ không hoạt động. Hãy kéo nguyên các thư mục, KHÔNG kéo thư mục bọc bên ngoài.
+4. Bấm Commit changes (nếu GitHub hỏi ghi đè file cũ, xác nhận).
+5. Chờ Actions > pages build and deployment thành công, mở đường dẫn https://mapleleaf3637-design.github.io/tdstkndemo2.github.io/?v=mobile3 hoặc thử tab ẩn danh/refresh mạnh.
+6. Tại trang game, xoay điện thoại ngang và chạm nút ⛶. Nếu Fullscreen API bị chặn, mở Chrome bình thường (không ẩn danh) > menu ba chấm > Thêm vào màn hình chính > Cài đặt để mở game như app.
+
+BẢN FULL: The_Lost_Elephant_Archive_Mobile_v3.zip chứa toàn bộ website và 9 ảnh gốc. Để triển khai mới, upload NỘI DUNG THƯ MỤC bên trong (không upload ZIP nguyên như 1 file).
+
+KHÔNG cần xóa toàn bộ repository, và không cần chỉnh mã nguồn thủ công.
